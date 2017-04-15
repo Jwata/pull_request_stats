@@ -2,3 +2,6 @@
 source "https://rubygems.org"
 
 gem 'octokit'
+gem 'pry'
+gem 'looksee'
+gem 'awesome_print'
