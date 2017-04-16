@@ -1,14 +1,9 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
-require 'bundler'
-Bundler.require
+require 'bundler/setup'
 require 'optparse'
-
-def main(token, repo)
-  client = Octokit::Client.new(access_token:  token)
-  puts client.repository(repo)
-end
+require './lib/pull_request_stats.rb'
 
 option = {}
 OptionParser.new do |opt|
@@ -17,4 +12,4 @@ OptionParser.new do |opt|
   opt.parse!(ARGV)
 end
 
-main(option[:token], option[:repo])
+puts PullRequestStats.call(option[:token], option[:repo])
