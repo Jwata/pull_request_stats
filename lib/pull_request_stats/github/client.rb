@@ -11,7 +11,7 @@ module PullRequestStats
    end
 
    def pull_requests(repo, state)
-     client.pull_requests(repo, state: state).map do |pull_request|
+     client.pull_requests(repo, state: state).lazy.map do |pull_request|
        Github::PullRequest.from_client(client, repo, pull_request.number)
      end
    end
