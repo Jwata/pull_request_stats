@@ -7,7 +7,7 @@ module PullRequestStats
    attr_reader :client
 
    def initialize(token)
-     @client = Octokit::Client.new(access_token:  token)
+     @client = Octokit::Client.new(access_token:  token, auto_paginate: true)
    end
 
    def pull_requests(repo, state)
