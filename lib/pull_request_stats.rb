@@ -7,6 +7,7 @@ module PullRequestStats
   def self.call(token, repo)
     repository = ElasticsearchRepository.new
     Github::Client.new(token).pull_requests(repo, :closed).each do |pull_request|
+      next unless pull_request.merged?
       puts pull_request
       repository.save(pull_request)
     end

@@ -23,6 +23,10 @@ module PullRequestStats
      pull_request.merged_at
    end
 
+   def merged?
+     pull_request.merged
+   end
+
    def duration
      merged_at - created_at
    end
