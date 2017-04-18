@@ -1,3 +1,5 @@
+require 'active_support/time'
+
 module PullRequestStats
  class Github::PullRequest
    def self.from_client(client, repo, number)
@@ -16,19 +18,19 @@ module PullRequestStats
    end
 
    def created_at
-     pull_request.created_at
+     pull_request.created_at.to_s(:iso8601)
    end
 
    def merged_at
-     pull_request.merged_at
+     pull_request.merged_at.to_s(:iso8601)
+   end
+
+   def duration
+     pull_request.merged_at - pull_request.created_at
    end
 
    def merged?
      pull_request.merged
-   end
-
-   def duration
-     merged_at - created_at
    end
 
    def changes
