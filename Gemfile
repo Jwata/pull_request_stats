@@ -2,6 +2,7 @@
 source "https://rubygems.org"
 
 gem 'octokit'
-gem 'pry'
+gem 'pry-byebug'
 gem 'looksee'
 gem 'awesome_print'
+gem 'elasticsearch'

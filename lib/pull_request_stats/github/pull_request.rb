@@ -28,7 +28,7 @@ module PullRequestStats
    end
 
    def changes
-     merge_commit.stats
+     merge_commit.stats.to_h
    end
 
    def to_h
