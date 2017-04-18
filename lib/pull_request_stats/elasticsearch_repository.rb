@@ -12,6 +12,7 @@ class ElasticsearchRepository
   def save(pull_request)
     id = pull_request.number
     es_type = pull_request.repo
+    puts "Saving pull request. #{pull_request.to_h}"
     es.update(index: ES_INDEX, type: es_type, id: id, body: { doc: pull_request.to_h, doc_as_upsert: true})
   end
 end
