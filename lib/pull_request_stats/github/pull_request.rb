@@ -2,19 +2,16 @@ require 'active_support/time'
 
 module PullRequestStats
  class Github::PullRequest
-   def self.from_client(client, repo, number)
-     pull_request = client.pull_request(repo, number)
-     merge_commit = client.commit(repo, pull_request.merge_commit_sha)
-     self.new(repo: repo, number: number, pull_request: pull_request, merge_commit: merge_commit)
-   end
+   attr_reader :repository, :pull_request, :merge_commit
 
-   attr_reader :repo, :number, :pull_request, :merge_commit
-
-   def initialize(repo: '', number: 0, pull_request: nil, merge_commit: nil)
-     @repo = repo
-     @number = number
+   def initialize(repository:, pull_request:, merge_commit:)
+     @repository = repository
      @pull_request = pull_request
      @merge_commit = merge_commit
+   end
+
+   def number
+     pull_request.number
    end
 
    def created_at
@@ -39,7 +36,7 @@ module PullRequestStats
 
    def to_h
      {
-       repository: repo,
+       repository: repository,
        number: number,
        created_at: created_at,
        merged_at: merged_at,

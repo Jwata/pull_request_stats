@@ -15,5 +15,20 @@ module PullRequestStats
        Github::PullRequest.from_client(client, repo, pull_request.number)
      end
    end
+
+   def pull_request(repo, number)
+     pull_request = client.pull_request(repo, number)
+     merge_commit = commit(repo, pull_request.merge_commit_sha)
+     Github::PullRequest.new(repository: repo, pull_request: pull_request, merge_commit: merge_commit)
+   end
+
+   private
+
+   def commit(repo, commit_sha)
+     client.commit(repo, commit_sha)
+   rescue Octokit::NotFound => e
+     puts "Commit not found. repo: #{repo}, sha: #{commit_sha}, error: #{e.message}"
+     nil
+   end
  end
 end
